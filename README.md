@@ -1,4 +1,24 @@
+# Updates from changh95
 
+- Added Dockerfile
+- Added missing ORBVoc.txt
+
+## How to run
+
+- Build docker image
+   - `docker build . -t cubeslam:latest` builds a docker image for NVIDIA graphics card
+- Making a docker container
+   - `docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v {MY_DATA}:/data -e DISPLAY=$DISPLAY --runtime nvidia --privileged cube_slam_nvidia:latest` makes a docker container.
+   - {MY_DATA} is the directory that has data to run orb_object_slam and stuffs. Under this directory, the folders should have 'seq_07' and 'seq_18' folder.
+- Running orb_object_slam
+   - Open 2 terminals. In each terminal, use `docker exec -it <container> bash`.
+   - In each terminal, change directory to `~/cubeslam_ws` and use `source devel/setup.bash`.
+   - Check the entries in `~/cubeslam_ws/src/cube_slam/orb_object_slam/launch/mono.launch`.
+   - On the first terminal, use `roslaunch orb_object_slam mono.launch`.
+   - On the second terminal, use `rosbag play left_full_gray.bag --clock -r 0.5
+
+
+---
 
 # Cube SLAM #
 This code contains two mode:
